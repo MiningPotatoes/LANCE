@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start index.js --name=\"lance\"",
+    "start": "pm2 start index.js --name=\"lance\" --watch",
     "stop": "pm2 delete lance",
     "console": "pm2 logs lance"
   },
