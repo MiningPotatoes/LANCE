@@ -4,15 +4,19 @@
   "description": "A personal Skype bot.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start index.js --name=\"lance\"",
+    "stop": "pm2 delete lance",
+    "console": "pm2 logs lance"
   },
   "author": "Nick Clifford <nick@nickclifford.me> (https://nickclifford.me/)",
   "license": "MIT",
   "dependencies": {
+    "pm2": "^1.1.3",
     "skyweb": "0.0.4"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/MiningPotatoes/LANCE.git"
+    "url": "git+https://github.com/MiningPotatoes/LANCE.git"
   }
 }
