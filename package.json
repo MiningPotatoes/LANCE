@@ -10,5 +10,9 @@
   "license": "MIT",
   "dependencies": {
     "skyweb": "0.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MiningPotatoes/LANCE.git"
   }
 }
