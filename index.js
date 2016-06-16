@@ -31,6 +31,7 @@ var skyweb = new Skyweb();
 
 skyweb.login(account.user, account.pwd).then(function(skypeAccount){
 	console.log("Skype account \"" + account.user + "\" attached.");
+	skyweb.setStatus('Online');
 });
 
 // accept all contact requests
