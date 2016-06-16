@@ -46,7 +46,7 @@ skyweb.authRequestCallback = (requests) => {
 skyweb.messagesCallback = (messages) => {
     messages.forEach((message) => {
     	// avoids "is typing..." messages
-    	if(message.resource.messagetype !== 'Control/Typing' && message.resource.messagetype !== 'Control/ClearTyping') {
+    	if(message.resource.messagetype !== 'Control/Typing' && message.resource.messagetype !== 'Control/ClearTyping' && message.resource.messagetype !== 'Control/LiveState') {
 	    	console.log(message.resource.from.substring(skypeNameAddon.length) + ": " + message.resource.content);
 	    	// avoids the bot's own messages
 	        if(message.resource.from.substring(skypeNameAddon.length).indexOf(account.user) === -1) {
