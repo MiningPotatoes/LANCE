@@ -12,6 +12,7 @@
   "author": "Nick Clifford <nick@nickclifford.me> (https://nickclifford.me/)",
   "license": "MIT",
   "dependencies": {
+    "mstranslator": "^2.0.8",
     "pm2": "^1.1.3",
     "skyweb": "0.0.4"
   },

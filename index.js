@@ -1,6 +1,8 @@
 // requiring
-var Skyweb = require('skyweb');
-var account = require('./account.json');
+var Skyweb 		 	 = require('skyweb');
+var MsTranslator 	 = require('mstranslator');
+var account		 	 = require('./account.json');
+var translationCreds = require('./translation.json');
 
 var commandPrefix = "$";
 
@@ -80,6 +82,7 @@ function parseCommand(cmd, convoId, message) {
 			commandPrefix + "ping: Pong!\n" +
 			commandPrefix + "dice: Rolls a die.\n" + 
 			commandPrefix + "privilege: Checks your privilege.");
+			//commandPrefix + "translate: Translate something from one language to another."
 			break;
 		case "ping":
 			skyweb.sendMessage(convoId, "Pong!");
@@ -100,6 +103,36 @@ function parseCommand(cmd, convoId, message) {
 		case "privilege":
 			skyweb.sendMessage(convoId, message.resource.imdisplayname + ", your privilege is currently " + (Math.random() * 10) + ".");
 			break;
+		/*
+		case "translate":
+			var newArgs = cmdArgs.slice();
+			newArgs.splice(0, 3);
+			var translationText = newArgs.join(" ");
+			var translator = new MsTranslator(translationCreds, true);
+			if(typeof cmdArgs[1] === "undefined") {
+				skyweb.sendMessage(convoId, "You need an argument for the $translate command.");
+			} else {
+				if(cmdArgs[1] === "get-langs") {
+					translator.getLanguagesForTranslate(function(codesList){
+						//translator.getLanguageNames("en", codesList, 
+						skyweb.sendMessage(convoId, "The languages available for translation are " + codesList[1].join(", ") + ".");
+					});
+				} else {
+					try {
+						if(cmdArgs[1] === "detect") {
+							translator.detect({text: translationText}, function(lang){
+								cmdArgs[1] = lang[1];
+							});
+						}
+						translator.translate({text: translationText, from: cmdArgs[1], to: cmdArgs[2]}, function(newPhrase){
+							skyweb.sendMessage(convoId, "\"" + translationText + "\" translated from " + cmdArgs[1] + " to " + cmdArgs[2] + " is \"" + newPhrase[1] + "\".");
+						});
+					} catch(e) {
+						skyweb.sendMessage(convoId, "Looks like one of the language codes you chose isn't valid. Try again!");
+					}
+				}
+			}
+			break;*/
 		default:
 			skyweb.sendMessage(convoId, "Lance doesn't recognize this command. Look at " + commandPrefix + "help for available commands.");
 			break;
