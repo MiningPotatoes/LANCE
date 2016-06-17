@@ -103,8 +103,7 @@ function parseCommand(cmd, convoId, message) {
 		case "privilege":
 			skyweb.sendMessage(convoId, message.resource.imdisplayname + ", your privilege is currently " + (Math.random() * 10) + ".");
 			break;
-		/*
-		case "translate":
+		/*case "translate":
 			var newArgs = cmdArgs.slice();
 			newArgs.splice(0, 3);
 			var translationText = newArgs.join(" ");
@@ -113,26 +112,36 @@ function parseCommand(cmd, convoId, message) {
 				skyweb.sendMessage(convoId, "You need an argument for the $translate command.");
 			} else {
 				if(cmdArgs[1] === "get-langs") {
-					translator.getLanguagesForTranslate(function(codesList){
-						//translator.getLanguageNames("en", codesList, 
-						skyweb.sendMessage(convoId, "The languages available for translation are " + codesList[1].join(", ") + ".");
+					translator.getLanguagesForTranslate(function(codesErr, codesList){
+						translator.getLanguageNames({locale: "en", languageCodes: codesList}, function(namesErr, namesList) {
+							var fullNameList = "";
+							for(var i = 0; i < codesList.length; i++) {
+								if(i == codesList.length - 1) {
+									fullNameList += "and " + codesList[i] + " (" + namesList[i] + ")";
+								} else {
+									fullNameList += codesList[i] + " (" + namesList[i] + "), ";
+								}
+							}
+							skyweb.sendMessage(convoId, "The languages available for translation are " + fullNameList + ".");
+						});
 					});
 				} else {
 					try {
+						var fromLang = cmdArgs[1];
 						if(cmdArgs[1] === "detect") {
-							translator.detect({text: translationText}, function(lang){
-								cmdArgs[1] = lang[1];
+							translator.detect({text: translationText}, function(detectErr, lang){
+								fromLang = lang;
 							});
 						}
-						translator.translate({text: translationText, from: cmdArgs[1], to: cmdArgs[2]}, function(newPhrase){
-							skyweb.sendMessage(convoId, "\"" + translationText + "\" translated from " + cmdArgs[1] + " to " + cmdArgs[2] + " is \"" + newPhrase[1] + "\".");
+						translator.translate({text: translationText, from: fromLang, to: cmdArgs[2]}, function(newErr, newPhrase){
+							skyweb.sendMessage(convoId, "\"" + translationText + "\" translated from " + fromLang + " to " + cmdArgs[2] + " is \"" + newPhrase + "\".");
 						});
 					} catch(e) {
 						skyweb.sendMessage(convoId, "Looks like one of the language codes you chose isn't valid. Try again!");
 					}
 				}
-			}
-			break;*/
+			}*/
+			break;
 		default:
 			skyweb.sendMessage(convoId, "Lance doesn't recognize this command. Look at " + commandPrefix + "help for available commands.");
 			break;
